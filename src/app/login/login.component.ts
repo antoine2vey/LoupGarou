@@ -12,11 +12,13 @@ export class LoginComponent implements OnInit {
   private connection: any;
   private user: any;
   private error: any = '';
+  private username: string = '';
 
   constructor(private loginService: LoginService) { }
 
   login(username) {
     this.loginService.login(username);
+    this.username = '';
   }
 
   ngOnInit() {

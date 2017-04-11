@@ -1,7 +1,14 @@
-<div class="speak">
-  <p *ngFor="let message of messages">({{message.at | date :'H:mm:ss'}}) {{message.from}} : {{message.message}}</p>
-</div>
 <div class="chat">
-  <input type="text" id="chat-input" [(ngModel)]="message" />
-  <input type="submit" value="Envoyer" (click)="messageSent(message)" class="chat-submit">
+  <div *ngFor="let message of messages">
+    <div class="chat-message-container" [class.right]="message.own">
+      <div class="chat-message" [class.own-message]="message.own">
+        <span class="chat-message-date">{{message.at | date :'H:mm:ss'}}</span>
+        <p class="chat-message-content">{{message.from}} : {{message.message}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="chat-form">
+    <input type="text" class="chat-input" [(ngModel)]="message" />
+    <input type="submit" value="Envoyer" (click)="messageSent(message)" class="chat-submit" />
+  </div>
 </div>

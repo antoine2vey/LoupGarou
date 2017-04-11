@@ -9,15 +9,21 @@ export class ChatService {
   private socket: any = io(this.url);
 
   sendMessage(message) {
-    this.socket.emit('messageSent', {
-      name: JSON.parse(localStorage.getItem("user")).username,
-      message
-    })
+    if (message !== '') {
+      this.socket.emit('messageSent', {
+        name: JSON.parse(localStorage.getItem("user")).username,
+        message
+      })
+    }
   }
 
   getMessages() {
     let observable = new Observable(observer => {
       this.socket.on('message', (data) => {
+        const name = JSON.parse(localStorage.getItem("user")).username;
+        if (data.from === name) {
+          data.own = true
+        }
         observer.next(data);
       });
     })
