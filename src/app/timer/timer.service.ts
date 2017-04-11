@@ -4,11 +4,17 @@ import { Observable } from 'rxjs/Observable';
 import * as io from 'socket.io-client';
 
 @Injectable()
-export class UsersService {
+export class TimerService {
   private url: string = 'http://localhost:3005';
   private socket: any = io(this.url);
 
-startGame(){
-  this.socket.emit('startGame');
+countdown(){
+  let observable = new Observable(observer => {
+    this.socket.on('timer', (data) => {
+      observer.next(3000);
+    });
+  })
+  return observable;
 }
+
 }
