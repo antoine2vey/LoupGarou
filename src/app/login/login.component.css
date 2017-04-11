@@ -1,0 +1,88 @@
+.loginPage{
+    background: url("loupGarouBackground.jpg") no-repeat center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.loginMain {
+    padding: 120px;
+    text-align: center;
+    display: flex;
+}
+
+.loginModal {
+    background-color: rgba(255, 255, 255, 0.80);
+    border-radius: 8px;
+    width: 70%;
+    height: 13%;
+    margin: 0 auto;
+    display: flex;
+    -webkit-animation-name: imageSlide;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-timing-function: ease;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-fill-mode: forwards;
+    position: relative;
+    top: -800px;
+    margin-top:25px;
+}
+@-webkit-keyframes imageSlide {
+    0% {top: -800px;}
+    70% {top: 0px;}
+    85% {top: 0px;}
+    100% {top: 0px;-webkit-animation-play-state : paused;}
+}
+
+input{
+    background-color: rgba(255, 255, 255, 0.80);
+    border-radius: 5px;
+    width: 60%;
+    margin-top: 12px;
+    padding: 5px;
+}
+
+h1{
+    width: 40%;
+    margin-top: 18px;
+    padding: 0;
+    font-size: 21px;
+    color: #333;
+}
+
+h3{
+    text-align: center;
+    color: white;
+}
+
+a{
+    color:white;
+}
+a:hover{
+    color:#574c4a;
+}
+
+p{
+    width: 70%;
+}
+
+.errorMessage{
+    margin-top: 25px;
+    font-size: 21px;
+    text-align: center;
+
+    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+    animation: fadein 2s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
