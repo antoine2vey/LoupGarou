@@ -5,20 +5,21 @@ import { LoginService } from '../login.service';
   selector: 'login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [ LoginService ]
+  providers: [LoginService]
 })
 export class LoginComponent implements OnInit {
   private socket: any;
   private connection: any;
   private error: any = '';
 
-  constructor(private loginService: LoginService) {}
+  constructor(private loginService: LoginService) { }
 
   login(username) {
+    localStorage.loginService = username;
     this.loginService.login(username);
   }
 
-  ngOnInit() {    
+  ngOnInit() {
     this.connection = this.loginService.getError().subscribe(error => {
       this.error = error;
     })
