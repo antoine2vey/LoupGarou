@@ -7,11 +7,15 @@ import { LoginService } from '../login.service';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
   //providers: [ LoginService ]
+
+
 })
 
 export class UsersComponent implements OnInit {
   private socket: any;
   private connection: any;
+  private isMaster: boolean = false;
+
 
 
   constructor(private loginService: LoginService) {}
@@ -21,6 +25,6 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.isMaster = JSON.parse(localStorage.getItem("user"));
   }
 }
