@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ChatComponent } from './chat/chat.component';
+import * as io from 'socket.io-client';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +8,5 @@ import { ChatComponent } from './chat/chat.component';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app works!';
+
 }
