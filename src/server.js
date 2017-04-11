@@ -44,16 +44,20 @@ io.on('connection', (socket) => {
       }
       users.push(user); 
       console.log(users);
-      socket.emit('playerInfo', user);
-      socket.broadcast.emit('newPlayer', `${data.username} à rejoint le salon!`);
+      socket.emit('infos', {
+        user,
+        usersConnected: users
+      });
+      
+      socket.broadcast.emit('newPlayer', data.username);
     }
-  });
+  });  
 
   /**
    * CHAT MESSAGES
    */
   socket.on('messageSent', (payload) => {
-    console.log(payload);
+    console.log({payload, id: socket.id});
     const {
       name,
       message
@@ -70,7 +74,6 @@ io.on('connection', (socket) => {
   socket.on('startGame', (payload) => {
     setInterval(() => {
       countdown--;
-
 
       io.sockets.emit('timer', { countdown });
     }, 1000)

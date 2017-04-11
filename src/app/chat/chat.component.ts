@@ -19,7 +19,8 @@ export class ChatComponent implements OnInit {
       this.messages.push(message);
     })
     this.connection = this.chatService.login().subscribe(message => {
-      this.messages.push({ message });
+      const formattedMsg = `${message} à rejoint la salle`
+      this.messages.push({ message: formattedMsg });
     })
   }
 
