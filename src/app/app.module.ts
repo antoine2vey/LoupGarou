@@ -11,7 +11,7 @@ import { LoginService } from './login.service';
 @NgModule({
   declarations: [
     AppComponent,
-    ChatComponent
+    ChatComponent,
     LoginComponent
   ],
   imports: [
