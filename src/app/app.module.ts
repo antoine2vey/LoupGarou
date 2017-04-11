@@ -7,12 +7,14 @@ import { AppComponent } from './app.component';
 import { ChatComponent } from './chat/chat.component';
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './login.service';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChatComponent,
-    LoginComponent
+    LoginComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
