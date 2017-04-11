@@ -10,7 +10,7 @@ export class ChatService {
 
   sendMessage(message) {
     this.socket.emit('messageSent', {
-      name: localStorage.loginService,
+      name: JSON.parse(localStorage.getItem("user")).username,
       message
     })
   }
@@ -24,11 +24,10 @@ export class ChatService {
     return observable;
   }
 
-  login(username) {
+  login() {
     let observable = new Observable(observer => {
       this.socket.on('newPlayer', (data) => {
         observer.next(data);
-        console.log(data);
       });
     })
     return observable;
