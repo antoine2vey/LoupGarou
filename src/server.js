@@ -39,12 +39,13 @@ io.on('connection', (socket) => {
     } else {
       users.push({
         id: socket.id,
-        username: data.username        
-      });
+        username: data.username,
+        isMaster: users.length === 1 ? false : true
+      });      
 
       socket.broadcast.emit('newPlayer', `${data.username} à rejoint le salon!`);
     }
-  })
+  });
 
   /**
    * CHAT MESSAGES
@@ -57,4 +58,13 @@ io.on('connection', (socket) => {
       at: new Date()
     })
   });
+
+  let turnTime = 3;
+  let coutdown = turnTime * 60;
+  socket.on('startGame', (payload) => {
+    setInterval(() => {
+      countdown--;
+      io.sockets.emit('timer', { countdown });
+    }, 1000)
+  })
 })
