@@ -29,6 +29,9 @@ console.log(`Max wolves possible : ${MAX_WOLVES}`);
 console.log(`Max villagers possible: ${MAX_VILLAGERS}`);
 
 io.on('connection', (socket) => {
+  /**
+   * LOGIN
+   */
   socket.on('login', (data) => {    
     // If user is already connected
     if(users.some(user => user.username === data.username)) {      
@@ -38,7 +41,20 @@ io.on('connection', (socket) => {
         id: socket.id,
         username: data.username        
       });
-      console.log(users);
+
+      socket.broadcast.emit('newPlayer', `${data.username} à rejoint le salon!`);
     }
   })
+
+  /**
+   * CHAT MESSAGES
+   */
+  socket.on('messageSent', (payload) => {
+    const { name, message } = payload;
+    socket.broadcast.emit('message', {
+      from: name,
+      message,
+      at: new Date()
+    })
+  });
 })
