@@ -42,7 +42,7 @@ io.on('connection', (socket) => {
         username: data.username,
         isMaster: users.length === 1 ? false : true
       }
-      users.push(user);      
+      users.push(user);
       socket.emit('playerInfo', user);
       socket.broadcast.emit('newPlayer', `${data.username} à rejoint le salon!`);
     }
