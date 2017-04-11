@@ -1,5 +1,6 @@
 <div class="speak">
   <p *ngFor="let message of messages">({{message.at | date :'H:mm:ss'}}) {{message.from}} : {{message.message}}</p>
+  <p></p>
 </div>
 <div class="chat">
   <input type="text" class="chat-input" [(ngModel)]="message" />

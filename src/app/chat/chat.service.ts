@@ -23,4 +23,14 @@ export class ChatService {
     })
     return observable;
   }
+
+  login(username) {
+    let observable = new Observable(observer => {
+      this.socket.on('newPlayer', (data) => {
+        observer.next(data);
+        console.log(data);
+      });
+    })
+    return observable;
+  }
 }

@@ -25,7 +25,4 @@ export class ChatComponent implements OnInit {
   messageSent(message) {
     this.chatService.sendMessage(message);
   }
-
-
-
 }
