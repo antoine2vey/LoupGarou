@@ -37,12 +37,13 @@ io.on('connection', (socket) => {
     if (users.some(user => user.username === data.username)) {
       socket.emit('usernameTaken', 'Name already taken');
     } else {
-      users.push({
+      const user = {
         id: socket.id,
         username: data.username,
         isMaster: users.length === 1 ? false : true
-      });      
-
+      }
+      users.push(user);      
+      socket.emit('playerInfo', user);
       socket.broadcast.emit('newPlayer', `${data.username} à rejoint le salon!`);
     }
   });
@@ -68,6 +69,8 @@ io.on('connection', (socket) => {
   socket.on('startGame', (payload) => {
     setInterval(() => {
       countdown--;
+
+
       io.sockets.emit('timer', { countdown });
     }, 1000)
   })
