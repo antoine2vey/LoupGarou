@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import * as io from 'socket.io-client';
+import { ChatComponent } from './chat/chat.component';
 
 @Component({
   selector: 'app-root',
