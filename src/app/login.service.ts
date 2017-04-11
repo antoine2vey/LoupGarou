@@ -20,4 +20,13 @@ export class LoginService {
     })
     return observable;
   }
+
+  getUser() {
+    let observable = new Observable(observer => {
+      this.socket.on('playerInfo', (data) => {
+        observer.next(data);
+      });
+    })
+    return observable;
+  }
 }

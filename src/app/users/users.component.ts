@@ -12,7 +12,7 @@ import { LoginService } from '../login.service';
 export class UsersComponent implements OnInit {
   private socket: any;
   private connection: any;
-  private error: any = '';
+
 
   constructor(private loginService: LoginService) {}
 
@@ -21,8 +21,6 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.connection = this.loginService.getError().subscribe(error => {
-      this.error = error;
-    })
+
   }
 }
