@@ -5,11 +5,11 @@ import { LoginService } from '../login.service';
 @Component({
   selector: 'admin',
   templateUrl: './users.component.html',
-  styleUrls: ['./admin.component.css'],
+  styleUrls: ['./users.component.css'],
   //providers: [ LoginService ]
 })
 
-export class LoginComponent implements OnInit {
+export class UsersComponent implements OnInit {
   private socket: any;
   private connection: any;
   private error: any = '';
