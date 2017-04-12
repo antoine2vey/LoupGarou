@@ -4,10 +4,10 @@ import { TimerService } from './timer.service';
 @Component({
   selector: 'app-timer',
   templateUrl: './timer.component.html',
-  styleUrls: ['./timer.component.css']  
+  styleUrls: ['./timer.component.css']
 })
 export class TimerComponent implements OnInit {
-  private countdown: any = 180;  
+  private countdown: any = 180;
 
   constructor(private timerService: TimerService) { }
 

@@ -50,15 +50,15 @@ io.on('connection', (socket) => {
         user,
         usersConnected: users
       });
-      
+
       socket.broadcast.emit('newPlayer', data.username);
     }
-  });  
+  });
 
   /**
    * CHAT MESSAGES
    */
-  socket.on('messageSent', (payload) => {    
+  socket.on('messageSent', (payload) => {
     const { name, message } = payload;
     io.sockets.emit('message', {
       from: name,
@@ -72,13 +72,13 @@ io.on('connection', (socket) => {
    */
   let turnTime = 3;
   let countdown = turnTime * 60;
-  socket.on('startGame', (payload) => {        
+  socket.on('startGame', (payload) => {
     if(!GAME_HAS_STARTED) {
       setInterval(() => {
         countdown--;        
         io.sockets.emit('timer', { countdown });
       }, 1000)
-      
+
       GAME_HAS_STARTED = true;
     }
   })
