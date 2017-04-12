@@ -10,30 +10,61 @@ http.listen(PORT, () => console.log('listening on PORT ' + PORT));
 //Total user at the start
 let GAME_HAS_STARTED = false;
 let users = [];
-let totalUsers = users.length;
+// const users = [
+//   {
+//     id: 0,
+//     name: 'Antoine',
+//   },
+//   {
+//     id: 1,
+//     name: 'Pierre',
+//   },
+//   {
+//     id: 2,
+//     name: 'Clément',
+//   },
+//   {
+//     id: 3,
+//     name: 'Thibault',
+//   },
+//   {
+//     id: 4,
+//     name: 'Maxime',
+//   },
+//   {
+//     id: 5,
+//     name: 'Edwin',
+//   },
+//   {
+//     id: 6,
+//     name: 'Margaux',
+//   },
+//   {
+//     id: 7,
+//     name: 'Eva',
+//   },
+//   {
+//     id: 8,
+//     name: 'Kouek',
+//   },
+// ]
 //All roles are defined here
-let roles = ['Loup', 'Villageois', 'Chasseur', 'Petite fille', 'Cupidon'];
+let roles = ['Chasseur', 'Petite fille', 'Cupidon'];
 //Get availables length roles to define how much wolves/villagers
 const offset = roles.filter(role => role !== 'Loup' && role !== 'Villageois').length;
-
-// const MIN_TO_START = 6;
-// const AVAILABLE_WOLVES_OR_VILLAGER = totalUsers - offset;
-// const MAX_WOLVES = (AVAILABLE_WOLVES_OR_VILLAGER % 2 === 0) ? AVAILABLE_WOLVES_OR_VILLAGER / 2 : (AVAILABLE_WOLVES_OR_VILLAGER / 2) + .5;
-// const MAX_VILLAGERS = (AVAILABLE_WOLVES_OR_VILLAGER % 2 === 0) ? AVAILABLE_WOLVES_OR_VILLAGER / 2 : (AVAILABLE_WOLVES_OR_VILLAGER / 2) - .5;
 
 const getRandomRole = () => {
   const randomRole = Math.floor(Math.random() * roles.length);
   return roles[randomRole];
 }
-const getIdOnRole = (role) => users.filter(u => u.role === role).map(x => x.id);
 
-// console.log(`Max wolves possible : ${MAX_WOLVES}`);
-// console.log(`Max villagers possible: ${MAX_VILLAGERS}`);
+const getIdOnRole = (role) => users.filter(u => u.role === role).map(x => x.id);
 
 io.on('connection', (socket) => {
   /**
    * LOGIN
-   */
+   */  
+
   socket.on('login', (data) => {
     // If user is already connected
     if (users.some(user => user.username === data.username)) {
@@ -73,6 +104,25 @@ io.on('connection', (socket) => {
   let turnTime = 3;
   let countdown = turnTime * 60;
   socket.on('startGame', (payload) => {
+    const AVAILABLE_WOLVES_OR_VILLAGER = users.length - offset;
+    const MAX_WOLVES = (AVAILABLE_WOLVES_OR_VILLAGER % 2 === 0) ? AVAILABLE_WOLVES_OR_VILLAGER / 2 : (AVAILABLE_WOLVES_OR_VILLAGER / 2) + .5;
+    const MAX_VILLAGERS = (AVAILABLE_WOLVES_OR_VILLAGER % 2 === 0) ? AVAILABLE_WOLVES_OR_VILLAGER / 2 : (AVAILABLE_WOLVES_OR_VILLAGER / 2) - .5;
+
+    for (let i = 0; i < MAX_WOLVES; i++) {
+      roles.push('Loup');
+    }
+    for (let j = 0; j < MAX_VILLAGERS; j++) {
+      roles.push('Villageois');
+    }
+
+    users.forEach(user => {  
+      const index = Math.floor(Math.random() * roles.length);
+      user.role = roles[index];
+      roles.splice(index, 1);
+    });    
+
+    socket.broadcast.emit('role', users);
+
     if(!GAME_HAS_STARTED) {
       setInterval(() => {
         countdown--;
@@ -83,74 +133,3 @@ io.on('connection', (socket) => {
     }
   })
 });
-
-//TEST PART
-
-const _users = [
-  {
-    id: 0,
-    name: 'Antoine',
-  },
-  {
-    id: 1,
-    name: 'Pierre',
-  },
-  {
-    id: 2,
-    name: 'Clément',
-  },
-  {
-    id: 3,
-    name: 'Thibault',
-  },
-  {
-    id: 4,
-    name: 'Maxime',
-  },
-  {
-    id: 5,
-    name: 'Edwin',
-  },
-  {
-    id: 6,
-    name: 'Margaux',
-  },
-  {
-    id: 7,
-    name: 'Eva',
-  },
-  {
-    id: 8,
-    name: 'Kouek',
-  },
-]
-let _rolesAvailables = ['Chasseur', 'Petite fille', 'Cupidon'];
-const AVAILABLE_WOLVES_OR_VILLAGER = _users.length - offset;
-const MAX_WOLVES = (AVAILABLE_WOLVES_OR_VILLAGER % 2 === 0) ? AVAILABLE_WOLVES_OR_VILLAGER / 2 : (AVAILABLE_WOLVES_OR_VILLAGER / 2) + .5;
-const MAX_VILLAGERS = (AVAILABLE_WOLVES_OR_VILLAGER % 2 === 0) ? AVAILABLE_WOLVES_OR_VILLAGER / 2 : (AVAILABLE_WOLVES_OR_VILLAGER / 2) - .5;
-
-console.log(`Max wolves: ${MAX_WOLVES}`)
-console.log(`Max villagers: ${MAX_VILLAGERS}`)
-
-//Push max wolves && villagers to array
-//Assign role to random user
-for (let i = 0; i < MAX_WOLVES; i++) {
-  _rolesAvailables.push('Loup');
-}
-for (let j = 0; j < MAX_VILLAGERS; j++) {
-  _rolesAvailables.push('Villageois');
-}
-
-let usedIndexes = [];
-_users.forEach(user => {
-  //Random index
-  const idx = Math.floor(Math.random() * roles.length);
-  usedIndexes.push(idx);
-  console.log(`Setting ${_rolesAvailables[idx]} to ${user.name} `)
-
-  user.role = _rolesAvailables[idx];
-  _rolesAvailables.splice(idx, 1);
-});
-
-console.log(_rolesAvailables);
-console.log(_users);

@@ -19,6 +19,17 @@ export class ChatService {
     }
   }
 
+  giveRole() {
+    let observable = new Observable(observer => {
+      this.socket.on('role', (data) => {
+        const name = JSON.parse(localStorage.getItem('user')).username;
+        const role = data.filter(u => u.username === name).map(x => x.role)[0];
+        observer.next(role);
+      });
+    })
+    return observable;
+  }
+
   getMessages() {
     let observable = new Observable(observer => {
       this.socket.on('message', (data) => {
@@ -35,15 +46,6 @@ export class ChatService {
   login() {
     let observable = new Observable(observer => {
       this.socket.on('newPlayer', (data) => {
-        observer.next(data);
-      });
-    })
-    return observable;
-  }
-
-  giveRole(){
-    let observable = new Observable(observer => {
-      this.socket.on('role', (data) => {        
         observer.next(data);
       });
     })
