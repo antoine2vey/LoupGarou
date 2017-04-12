@@ -1,7 +1,7 @@
 <div class="chat">
   <div *ngFor="let message of messages">
     <div class="chat-message-container" [class.right]="message.own">
-      <div class="chat-message" [class.own-message]="message.own">
+      <div class="chat-message" [ngClass]="{'own-message' : message.own, 'chat-message' : !message.own}">
         <span class="chat-message-date">{{message.at | date :'H:mm:ss'}}</span>
         <p class="chat-message-content">{{message.from}} : {{message.message}}</p>
       </div>
