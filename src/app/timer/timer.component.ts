@@ -7,11 +7,11 @@ import { TimerService } from './timer.service';
   styleUrls: ['./timer.component.css']
 })
 export class TimerComponent implements OnInit {
-  private countdown: any = 180;
-
   constructor(private timerService: TimerService) { }
 
+  private countdown: any = this.timerService.formatDate(180);
+
   ngOnInit() {
-    this.timerService.countdown().subscribe(timer => this.countdown = timer);
+    this.timerService.countdown().subscribe(timer => this.countdown = this.timerService.formatDate(timer));
   }
 }
