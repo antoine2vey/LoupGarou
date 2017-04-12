@@ -24,6 +24,7 @@ const getRandomRole = () => {
   const randomRole = Math.floor(Math.random() * roles.length);
   return roles[randomRole];
 }
+const getIdOnRole = (role) => users.filter(u => u.role === role).map(x => x.id);
 
 console.log(`Max wolves possible : ${MAX_WOLVES}`);
 console.log(`Max villagers possible: ${MAX_VILLAGERS}`);
@@ -37,28 +38,42 @@ io.on('connection', (socket) => {
     if (users.some(user => user.username === data.username)) {
       socket.emit('usernameTaken', 'Name already taken');
     } else {
-      users.push({
+      const user = {
         id: socket.id,
-        username: data.username
+        username: data.username,
+        isMaster: users.length === 0 ? true : false
+      }
+      users.push(user);
+      console.log(users);
+      socket.emit('infos', {
+        user,
+        usersConnected: users
       });
-
-      socket.broadcast.emit('newPlayer', `${data.username} à rejoint le salon!`);
+      
+      socket.broadcast.emit('newPlayer', data.username);
     }
-  })
+  });  
 
   /**
    * CHAT MESSAGES
    */
-  socket.on('messageSent', (payload) => {
-    console.log(payload);
-    const {
-      name,
-      message
-    } = payload;
+  socket.on('messageSent', (payload) => {    
+    const { name, message } = payload;
     io.sockets.emit('message', {
       from: name,
       message,
       at: new Date()
     })
   });
-})
+
+  let turnTime = 3;
+  let countdown = turnTime * 60;
+  socket.on('startGame', (payload) => {
+    console.log('ok')
+    setInterval(() => {
+      countdown--;
+      console.log(countdown)
+      io.sockets.emit('timer', { countdown });
+    }, 1000)
+  })
+});

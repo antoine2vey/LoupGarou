@@ -1,28 +1,26 @@
 import { Component, OnInit } from '@angular/core';
+import { UsersService } from './users.service';
 import { LoginService } from '../login.service';
-
 
 @Component({
   selector: 'admin',
   templateUrl: './users.component.html',
-  styleUrls: ['./admin.component.css'],
-  //providers: [ LoginService ]
+  styleUrls: ['./users.component.css'],
 })
 
-export class LoginComponent implements OnInit {
-  private socket: any;
-  private connection: any;
-  private error: any = '';
+export class UsersComponent implements OnInit {
+  private isMaster: boolean = false;
 
-  constructor(private loginService: LoginService) {}
+  constructor(private loginService: LoginService,
+              private usersService: UsersService) {}
 
-  login(username) {
-    this.loginService.login(username);
+  startGame(){
+    this.usersService.startGame();
   }
-
+  
   ngOnInit() {
-    this.connection = this.loginService.getError().subscribe(error => {
-      this.error = error;
-    })
-  }
+    try {
+      this.isMaster = JSON.parse(localStorage.getItem("user")).isMaster;
+    } catch (e) { }
+    }
 }
