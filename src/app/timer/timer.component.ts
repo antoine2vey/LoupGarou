@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { TimerService } from './timer.service';
 
 @Component({
-  selector: 'timer',
+  selector: 'app-timer',
   templateUrl: './timer.component.html',
-  styleUrls: ['./timer.component.css']
+  styleUrls: ['./timer.component.css']  
 })
 export class TimerComponent implements OnInit {
-  private countdown: any;
+  private countdown: any = 180;  
 
-  constructor(private timerComponent : TimerComponent) { }
+  constructor(private timerService: TimerService) { }
 
   ngOnInit() {
-      this.timerComponent.countdown().subscribe(timer => this.countdown = timer);
+    this.timerService.countdown().subscribe(timer => this.countdown = timer);
   }
-
 }

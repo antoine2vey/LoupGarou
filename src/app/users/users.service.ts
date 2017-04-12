@@ -8,7 +8,7 @@ export class UsersService {
   private url: string = 'http://localhost:3005';
   private socket: any = io(this.url);
 
-startGame(){
-  this.socket.emit('startGame');
-}
+  startGame(){
+    this.socket.emit('startGame');
+  }
 }

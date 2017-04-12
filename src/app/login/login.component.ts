@@ -11,6 +11,7 @@ export class LoginComponent implements OnInit {
   private socket: any;
   private error: any = '';
   private users: any = [];
+  private username: string = '';
 
   constructor(private loginService: LoginService) { }
 

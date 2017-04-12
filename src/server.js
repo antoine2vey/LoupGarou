@@ -24,6 +24,7 @@ const getRandomRole = () => {
   const randomRole = Math.floor(Math.random() * roles.length);
   return roles[randomRole];
 }
+const getIdOnRole = (role) => users.filter(u => u.role === role).map(x => x.id);
 
 console.log(`Max wolves possible : ${MAX_WOLVES}`);
 console.log(`Max villagers possible: ${MAX_VILLAGERS}`);
@@ -56,12 +57,8 @@ io.on('connection', (socket) => {
   /**
    * CHAT MESSAGES
    */
-  socket.on('messageSent', (payload) => {
-    console.log({payload, id: socket.id});
-    const {
-      name,
-      message
-    } = payload;
+  socket.on('messageSent', (payload) => {    
+    const { name, message } = payload;
     io.sockets.emit('message', {
       from: name,
       message,
@@ -70,12 +67,13 @@ io.on('connection', (socket) => {
   });
 
   let turnTime = 3;
-  let coutdown = turnTime * 60;
+  let countdown = turnTime * 60;
   socket.on('startGame', (payload) => {
+    console.log('ok')
     setInterval(() => {
       countdown--;
-
+      console.log(countdown)
       io.sockets.emit('timer', { countdown });
     }, 1000)
   })
-})
+});

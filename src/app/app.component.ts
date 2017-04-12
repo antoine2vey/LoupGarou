@@ -6,19 +6,17 @@ import * as io from 'socket.io-client';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [LoginService]
 })
 
 export class AppComponent implements OnInit {
   private users: any = [];
   private socket:any = io('http://localhost:3005');
 
-  constructor(private loginService: LoginService) {
-    this.socket.on('infos', (users) => {        
-      this.users = users;
-    });    
-  }
+  constructor(private loginService: LoginService) {}
+  
   ngOnInit() {             
-      
+    this.loginService.getUsersConnected().subscribe(users => {
+      console.log(users);
+    })
   }
 }
