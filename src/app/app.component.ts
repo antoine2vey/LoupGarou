@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from './login.service';
+import { ProxyService } from './proxy.service';
 import * as io from 'socket.io-client';
 
 @Component({
@@ -9,10 +10,11 @@ import * as io from 'socket.io-client';
 })
 
 export class AppComponent implements OnInit {
-  private users: any = [];
-  private socket:any = io('http://localhost:3005');
+  constructor(private loginService: LoginService,
+              private proxyService: ProxyService) {}
 
-  constructor(private loginService: LoginService) {}
+  private users: any = [];
+  private socket:any = io(this.proxyService.socketUrl());
   
   ngOnInit() {             
     this.loginService.getUsersConnected().subscribe(users => {

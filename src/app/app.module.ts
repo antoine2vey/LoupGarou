@@ -15,6 +15,8 @@ import { UsersComponent } from './users/users.component';
 import { routes } from './app.router';
 import { UsersService } from './users/users.service';
 
+import { ProxyService } from './proxy.service'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +31,13 @@ import { UsersService } from './users/users.service';
     HttpModule,
     routes
   ],
-  providers: [LoginService, ChatService, TimerService, UsersService],
+  providers: [
+    LoginService,
+    ChatService,
+    TimerService,
+    UsersService,
+    ProxyService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
