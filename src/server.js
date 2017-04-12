@@ -8,6 +8,7 @@ app.use(express.static(__dirname));
 http.listen(PORT, () => console.log('listening on PORT ' + PORT));
 
 //Total user at the start
+let GAME_HAS_STARTED = false;
 let users = [];
 let totalUsers = users.length;
 //All roles are defined here
@@ -49,15 +50,15 @@ io.on('connection', (socket) => {
         user,
         usersConnected: users
       });
-      
+
       socket.broadcast.emit('newPlayer', data.username);
     }
-  });  
+  });
 
   /**
    * CHAT MESSAGES
    */
-  socket.on('messageSent', (payload) => {    
+  socket.on('messageSent', (payload) => {
     const { name, message } = payload;
     io.sockets.emit('message', {
       from: name,
@@ -70,10 +71,14 @@ io.on('connection', (socket) => {
   let countdown = turnTime * 60;
   socket.on('startGame', (payload) => {
     console.log('ok')
-    setInterval(() => {
-      countdown--;
-      console.log(countdown)
-      io.sockets.emit('timer', { countdown });
-    }, 1000)
+    if(!GAME_HAS_STARTED) {
+      setInterval(() => {
+        countdown--;
+        console.log(countdown)
+        io.sockets.emit('timer', { countdown });
+      }, 1000)
+
+      GAME_HAS_STARTED = true;
+    }
   })
 });
