@@ -14,7 +14,7 @@ export class TimerService {
         observer.next(data.countdown);
       });
     })
-    
+
     return observable;
   }
 }
