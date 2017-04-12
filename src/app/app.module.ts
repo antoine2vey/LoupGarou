@@ -1,8 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {NgModule, Pipe} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-
 import { AppComponent } from './app.component';
 import { ChatComponent } from './chat/chat.component';
 import { ChatService } from './chat/chat.service';
@@ -13,6 +12,7 @@ import { TimerComponent } from './timer/timer.component';
 import { TimerService } from './timer/timer.service';
 
 import { UsersComponent } from './users/users.component';
+import { routes } from './app.router';
 import { UsersService } from './users/users.service';
 
 import { ProxyService } from './proxy.service'
@@ -28,7 +28,8 @@ import { ProxyService } from './proxy.service'
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    routes
   ],
   providers: [
     LoginService,

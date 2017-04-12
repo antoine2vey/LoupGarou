@@ -7,7 +7,7 @@ import * as io from 'socket.io-client';
 @Injectable()
 export class LoginService {
   constructor(private proxyService: ProxyService) {}
-  
+    
   private socket:any = io(this.proxyService.socketUrl());
 
   login(username) {
