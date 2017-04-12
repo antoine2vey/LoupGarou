@@ -15,7 +15,8 @@ import { UsersComponent } from './users/users.component';
 import { routes } from './app.router';
 import { UsersService } from './users/users.service';
 
-import { ProxyService } from './proxy.service'
+import { ProxyService } from './proxy.service';
+import { GameComponent } from './game/game.component'
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ProxyService } from './proxy.service'
     ChatComponent,
     LoginComponent,
     UsersComponent,
-    TimerComponent
+    TimerComponent,
+    GameComponent
   ],
   imports: [
     BrowserModule,
