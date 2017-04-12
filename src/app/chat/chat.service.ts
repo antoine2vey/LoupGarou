@@ -7,7 +7,7 @@ import * as io from 'socket.io-client';
 @Injectable()
 export class ChatService {
   constructor(private proxyService: ProxyService) {}
-  
+
   private socket:any = io(this.proxyService.socketUrl());
 
   sendMessage(message) {
@@ -35,6 +35,15 @@ export class ChatService {
   login() {
     let observable = new Observable(observer => {
       this.socket.on('newPlayer', (data) => {
+        observer.next(data);
+      });
+    })
+    return observable;
+  }
+
+  giveRole(){
+    let observable = new Observable(observer => {
+      this.socket.on('role', (data) => {        
         observer.next(data);
       });
     })
