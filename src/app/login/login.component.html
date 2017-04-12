@@ -1,15 +1,10 @@
-<ul>
-  <li>User connected:</li>
-  <li *ngFor="let user of users">{{user.username}}</li>
-</ul>
-
 <div class="loginPage">
   <div class="loginMain">
     <div class="loginModal">
       <h1>Joue Au Loup Garou</h1>
       <p>
         <input [(ngModel)]="username" type="text" name="username" placeholder="Entre Ton Pseudo" />
-        <button type="button" class="btn btn-default" routerLink = "UsersLogged" (click)="login(username)">Login </button>
+        <button type="button" class="btn btn-default" routerLink="UsersLogged" (click)="login(username)">Login </button>
       </p>
     </div>
   </div>
@@ -24,4 +19,3 @@
     <h3>Jeu du Loup Garou - <a href="http://lesloupsgarous.free.fr/htm/regles.html"> Régles du jeu </a></h3>
   </div>
 </div>
-

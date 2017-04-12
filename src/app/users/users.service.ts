@@ -6,11 +6,13 @@ import { ProxyService } from '../proxy.service'
 
 @Injectable()
 export class UsersService {
-  constructor(private proxyService: ProxyService) {}
-  
-  private socket:any = io(this.proxyService.socketUrl());
+  constructor(private proxyService: ProxyService) { }
 
-  startGame(){
+  private socket: any = io(this.proxyService.socketUrl());
+  animate = false;
+
+  startGame() {
+    this.animate = true;
     this.socket.emit('startGame');
   }
 }

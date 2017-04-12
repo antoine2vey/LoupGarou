@@ -10,7 +10,6 @@ import { LoginService } from '../login.service';
 export class LoginComponent implements OnInit {
   private socket: any;
   private error: any = '';
-  private users: any = [];
   private username: string = '';
 
 
@@ -24,7 +23,5 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.loginService.getError().subscribe(error => this.error = error);
     this.loginService.getUser().subscribe(user => localStorage.setItem("user", JSON.stringify(user)));
-    this.loginService.getUsersConnected().subscribe(users => this.users = users);
-    this.loginService.newUser().subscribe(user => this.users.push({ username: user }));
   }
 }

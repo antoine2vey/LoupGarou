@@ -1,0 +1,49 @@
+.timer {
+  display: inline-block;
+}
+
+.timer-container {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.timer-day {
+  position: relative;
+  z-index: 100;
+  top: 10px;
+  left: 10px;
+  width: 250px;
+  -webkit-filter: brightness(80%);
+  filter: brightness(80%);
+}
+
+.aminated {
+  -webkit-animation: bounce 2s infinite;
+  animation: bounce 2s infinite;
+}
+
+.timer-count {
+  color: #FFFFFF;
+  font-size: 24px;
+}
+
+@-webkit-keyframes bounce {
+  0% {
+    -webkit-filter: brightness(80%);
+    filter: brightness(80%);
+    transform: rotate(20deg);
+  }
+  50% {
+    -webkit-filter: brightness(100%);
+    filter: brightness(100%);
+    transform: rotate(-20deg);
+  }
+  100% {
+    -webkit-filter: brightness(80%);
+    filter: brightness(80%);
+    transform: rotate(20deg);
+  }
+}

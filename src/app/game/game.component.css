@@ -1,0 +1,29 @@
+.game {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: url("../../assets/images/game-bg.jpg") no-repeat center;
+  background-size: cover;
+}
+
+.game-title {
+  margin: 0;
+  text-align: center;
+}
+
+.game-container {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.game-main {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex: 1;
+  height: 95vh;
+  background: rgba(255, 255, 255, 0.3);
+  overflow: hidden;
+}
