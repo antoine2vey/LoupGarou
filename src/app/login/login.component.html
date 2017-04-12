@@ -4,21 +4,19 @@
       <h1>Joue Au Loup Garou</h1>
       <p>
         <input [(ngModel)]="username" type="text" name="username" placeholder="Entre Ton Pseudo" />
-        <button type="button" class="btn btn-default" (click)="login(username)">Login</button>
+        <button type="button" class="btn btn-default" routerLink = "UsersLogged" (click)="login(username)">Login </button>
       </p>
     </div>
   </div>
-  <div class="errorMessage">
+  <div [hidden]="!error" class="errorMessage">
     <code>{{error}}</code>
   </div>
+
+  <a routerLink="UsersLogged">Test accès sur les users</a>
 
   <div class="ruleGame">
     <h3>Jeu du Loup Garou - <a href="http://lesloupsgarous.free.fr/htm/regles.html"> Régles du jeu </a></h3>
   </div>
 </div>
 
-<script>
-    function pop() {
-        window.open('pop','height=100px,width=100px,top=100px,left=100px,resible=no');
-    }
-</script>
+
