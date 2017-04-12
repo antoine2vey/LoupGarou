@@ -75,7 +75,7 @@ io.on('connection', (socket) => {
   socket.on('startGame', (payload) => {
     if(!GAME_HAS_STARTED) {
       setInterval(() => {
-        countdown--;        
+        countdown--;
         io.sockets.emit('timer', { countdown });
       }, 1000)
 
@@ -89,39 +89,39 @@ io.on('connection', (socket) => {
 const _users = [
   {
     id: 0,
-    name: 'Antoine',    
+    name: 'Antoine',
   },
   {
     id: 1,
-    name: 'Pierre',    
+    name: 'Pierre',
   },
   {
     id: 2,
-    name: 'Clément',    
+    name: 'Clément',
   },
   {
     id: 3,
-    name: 'Thibault',    
+    name: 'Thibault',
   },
   {
     id: 4,
-    name: 'Maxime',    
+    name: 'Maxime',
   },
   {
     id: 5,
-    name: 'Edwin',    
+    name: 'Edwin',
   },
   {
     id: 6,
-    name: 'Margaux',    
+    name: 'Margaux',
   },
   {
     id: 7,
-    name: 'Eva',    
+    name: 'Eva',
   },
   {
     id: 8,
-    name: 'Kouek',    
+    name: 'Kouek',
   },
 ]
 let _rolesAvailables = ['Chasseur', 'Petite fille', 'Cupidon'];
@@ -145,7 +145,7 @@ let usedIndexes = [];
 _users.forEach(user => {
   //Random index
   const idx = Math.floor(Math.random() * roles.length);
-  usedIndexes.push(idx);  
+  usedIndexes.push(idx);
   console.log(`Setting ${_rolesAvailables[idx]} to ${user.name} `)
 
   user.role = _rolesAvailables[idx];
