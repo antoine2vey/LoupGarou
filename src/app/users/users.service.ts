@@ -24,7 +24,7 @@ export class UsersService {
     return observable;
   }
 
-  showRole(){
+  showRole() {
     this.socket.emit('role');
   }
 }
