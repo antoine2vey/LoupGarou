@@ -50,8 +50,7 @@ let users = [];
 // ]
 
 //All roles are defined here
-let roles = ['Chasseur', 'Petite fille', 'Cupidon'];
-
+let roles = ['Chasseur', 'Petite fille', 'Cupidon', 'Voyante', 'Sorcière'];
 const offset = roles.filter(role => role !== 'Loup' && role !== 'Villageois').length;
 const wolf = 'Loup';
 const villager = 'Villageois';
