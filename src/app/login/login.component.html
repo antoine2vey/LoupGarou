@@ -3,7 +3,7 @@
     <div class="loginModal">
       <h1>Joue Au Loup Garou</h1>
       <p>
-        <input [(ngModel)]="username" type="text" name="username" placeholder="Entre Ton Pseudo" />
+        <input [(ngModel)]="username" (keyup.enter)="login(username)" type="text" name="username" placeholder="Entre Ton Pseudo" />
         <button type="button" class="btn btn-default" (click)="login(username)">Login</button>
       </p>
     </div>
