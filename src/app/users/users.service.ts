@@ -9,10 +9,19 @@ export class UsersService {
   constructor(private proxyService: ProxyService) { }
 
   private socket: any = io(this.proxyService.socketUrl());
-  animate = false;
+  private animate = new Subject<boolean>();
+  newAnimate$ = this.animate.asObservable();
 
-  startGame() {
-    this.animate = true;
+  startGame(animate: boolean) {
+    console.log(animate);
+    this.animate.next(animate);
     this.socket.emit('startGame');
+  }
+
+  getAnimate() {
+    let observable = new Observable(observer => {
+      observer.next(this.animate);
+    })
+    return observable;
   }
 }

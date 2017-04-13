@@ -6,17 +6,16 @@ import { ProxyService } from '../proxy.service';
 
 @Injectable()
 export class TimerService {
-  constructor(private proxyService: ProxyService) {}
+  constructor(private proxyService: ProxyService) { }
 
-  private socket:any = io(this.proxyService.socketUrl());
+  private socket: any = io(this.proxyService.socketUrl());
 
-  countdown(){
+  countdown() {
     let observable = new Observable(observer => {
       this.socket.on('timer', (data) => {
         observer.next(data.countdown);
       });
     })
-
     return observable;
   }
   formatDate(number) {
@@ -31,6 +30,6 @@ export class TimerService {
     if (seconds < 10) {
       seconds = "0" + seconds;
     }
-    return minutes+' : '+seconds;
+    return minutes + ' : ' + seconds;
   }
 }

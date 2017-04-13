@@ -13,14 +13,13 @@
 .timer-day {
   position: relative;
   z-index: 100;
-  top: 10px;
-  left: 10px;
   width: 250px;
   -webkit-filter: brightness(80%);
   filter: brightness(80%);
+  transform: rotate(20deg);
 }
 
-.aminated {
+.animated {
   -webkit-animation: bounce 2s infinite;
   animation: bounce 2s infinite;
 }
