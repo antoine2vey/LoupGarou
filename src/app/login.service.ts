@@ -25,16 +25,16 @@ export class LoginService {
 
   getUser() {
     let observable = new Observable(observer => {
-      this.socket.on('infos', (data) => {
+      this.socket.on('infos', (data) => {        
         observer.next(data.user);
       });
     })
     return observable;
   }
 
-  getUsers() {    
+  getUsers() {
     let observable = new Observable(observer => {
-      this.socket.on('infos', (data) => {
+      this.socket.on('infos', (data) => {                
         observer.next(data.users);
       });
     })

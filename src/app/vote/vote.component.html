@@ -1,0 +1,5 @@
+<div class="vote">
+  <select (change)="setVote()">    
+    <option *ngFor="let user of users">{{user.username}}</option>    
+  </select>
+</div>

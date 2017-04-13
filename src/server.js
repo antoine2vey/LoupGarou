@@ -3,6 +3,7 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const PORT = process.env.PORT || 3005;
+const uuid = require('uuid/v4');
 
 app.use(express.static(__dirname));
 http.listen(PORT, () => console.log('listening on PORT ' + PORT));
@@ -50,7 +51,7 @@ let users = [];
 // ]
 
 //All roles are defined here
-let roles = ['Chasseur', 'Petite fille', 'Cupidon'];
+let roles = ['Chasseur', 'Petite fille', 'Cupidon', 'Voyante', 'Sorcière'];
 
 const offset = roles.filter(role => role !== 'Loup' && role !== 'Villageois').length;
 const wolf = 'Loup';
@@ -58,19 +59,28 @@ const villager = 'Villageois';
 
 const getIdOnRole = (role) => users.filter(u => u.role === role).map(x => x.id);
 
-io.on('connection', (socket) => {  
+io.on('connection', (socket) => {
   socket.on('disconnect', () => {    
     users = users.filter(u => u.id !== socket.id);    
-    socket.broadcast.emit('infos', { users });
+    //socket.broadcast.emit('infos', { users });
   });
+
   /**
    * LOGIN
    */  
   socket.on('login', (data) => {    
-    // If user is already connected
+    // If user is already connected    
     if (users.some(user => user.username === data.username)) {
       socket.emit('usernameTaken', 'Name already taken');
     } else {
+      socket.belongsTo = data.username;
+      //Get all sockets
+      const sockets = io.clients().connected;
+      //Map obj to array
+      const socketArray = Object.keys(sockets).map((key) => sockets[key]);
+      //Filter on user
+      const proprio = socketArray.filter(s => s.belongsTo === data.username);  
+
       const user = {
         id: socket.id,
         username: data.username,
@@ -78,9 +88,9 @@ io.on('connection', (socket) => {
         isDead: false
       }
 
-      users.push(user);
+      users.push(user);    
 
-      socket.emit('infos', { user, users });
+      socket.emit('infos', { users, user });
       socket.broadcast.emit('newPlayer', data.username);      
     }
   });
@@ -102,7 +112,8 @@ io.on('connection', (socket) => {
    */
   let turnTime = 3;
   let countdown = turnTime * 60;
-  socket.on('startGame', (payload) => {
+  socket.on('startGame', (payload) => { 
+    console.log(socket.belongsTo);
     const availableWolvesOrVillagers = users.length - offset;
     const maxWolves = (availableWolvesOrVillagers % 2 === 0) ? availableWolvesOrVillagers / 2 : (availableWolvesOrVillagers / 2) + .5;
     const maxVillagers = (availableWolvesOrVillagers % 2 === 0) ? availableWolvesOrVillagers / 2 : (availableWolvesOrVillagers / 2) - .5;
@@ -119,8 +130,8 @@ io.on('connection', (socket) => {
       user.role = roles[index];
       roles.splice(index, 1);
     });    
-
-    io.to(socket.id).emit('role', 'cc twa');    
+    
+    socket.to(socket.id).emit('role', 'duiazhdazi');
     socket.broadcast.emit('role', users);
 
     if(!GAME_HAS_STARTED) {

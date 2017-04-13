@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginService.getError().subscribe(error => this.error = error);    
-    this.loginService.getUser().subscribe(user => {
+    this.loginService.getUser().subscribe(user => {            
       localStorage.setItem("user", JSON.stringify(user));
       this.router.navigate(['game']);
     });
