@@ -22,7 +22,7 @@ export class ChatComponent implements OnInit {
       const formattedMsg = `${message} à rejoint la salle`
       this.messages.push({ message: formattedMsg });
     })
-    this.chatService.giveRole().subscribe(role => {             
+    this.chatService.giveRole().subscribe(role => {
       this.messages.push({message: role});
     });
   }

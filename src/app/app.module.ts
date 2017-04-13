@@ -16,7 +16,7 @@ import { routes } from './app.router';
 import { UsersService } from './users/users.service';
 
 import { ProxyService } from './proxy.service';
-import { GameComponent } from './game/game.component'
+import { GameComponent } from './game/game.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,8 @@ import { GameComponent } from './game/game.component'
     LoginComponent,
     UsersComponent,
     TimerComponent,
-    GameComponent
+    GameComponent,
+  
   ],
   imports: [
     BrowserModule,
