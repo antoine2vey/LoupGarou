@@ -10,7 +10,7 @@ export class ChatService {
 
   private socket:any = io(this.proxyService.socketUrl());
 
-  sendMessage(message) {
+  sendMessage(message) {    
     if (message !== '') {
       this.socket.emit('messageSent', {
         name: JSON.parse(localStorage.getItem("user")).username,
@@ -22,6 +22,7 @@ export class ChatService {
   giveRole() {
     let observable = new Observable(observer => {
       this.socket.on('role', (data) => {
+        console.log(data);
         const name = JSON.parse(localStorage.getItem('user')).username;
         const role = data.filter(u => u.username === name).map(x => x.role)[0];
         observer.next(role);

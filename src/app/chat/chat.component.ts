@@ -11,6 +11,7 @@ export class ChatComponent implements OnInit {
   private message: string = '';
   private connection: any;
   private messages: any = [];
+  private test: string = '';
 
   constructor(private chatService: ChatService) { }
 

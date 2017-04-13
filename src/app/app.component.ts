@@ -17,8 +17,8 @@ export class AppComponent implements OnInit {
   private socket:any = io(this.proxyService.socketUrl());
   
   ngOnInit() {             
-    this.loginService.getUsersConnected().subscribe(users => {
-      console.log(users);
+    this.loginService.getUsers().subscribe(users => {
+      this.users = users;
     })
   }
 }

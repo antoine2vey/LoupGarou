@@ -32,10 +32,10 @@ export class LoginService {
     return observable;
   }
 
-  getUsersConnected() {    
+  getUsers() {    
     let observable = new Observable(observer => {
       this.socket.on('infos', (data) => {
-        observer.next(data.usersConnected);
+        observer.next(data.users);
       });
     })
     return observable;

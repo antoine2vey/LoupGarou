@@ -48,24 +48,25 @@ let users = [];
 //     name: 'Kouek',
 //   },
 // ]
+
 //All roles are defined here
 let roles = ['Chasseur', 'Petite fille', 'Cupidon'];
-//Get availables length roles to define how much wolves/villagers
-const offset = roles.filter(role => role !== 'Loup' && role !== 'Villageois').length;
 
-const getRandomRole = () => {
-  const randomRole = Math.floor(Math.random() * roles.length);
-  return roles[randomRole];
-}
+const offset = roles.filter(role => role !== 'Loup' && role !== 'Villageois').length;
+const wolf = 'Loup';
+const villager = 'Villageois';
 
 const getIdOnRole = (role) => users.filter(u => u.role === role).map(x => x.id);
 
-io.on('connection', (socket) => {
+io.on('connection', (socket) => {  
+  socket.on('disconnect', () => {    
+    users = users.filter(u => u.id !== socket.id);    
+    socket.broadcast.emit('infos', { users });
+  });
   /**
    * LOGIN
    */  
-
-  socket.on('login', (data) => {
+  socket.on('login', (data) => {    
     // If user is already connected
     if (users.some(user => user.username === data.username)) {
       socket.emit('usernameTaken', 'Name already taken');
@@ -73,16 +74,14 @@ io.on('connection', (socket) => {
       const user = {
         id: socket.id,
         username: data.username,
-        isMaster: users.length === 0 ? true : false
+        isMaster: !users.length ? true : false,
+        isDead: false
       }
-      users.push(user);
-      console.log(users);
-      socket.emit('infos', {
-        user,
-        usersConnected: users
-      });
 
-      socket.broadcast.emit('newPlayer', data.username);
+      users.push(user);
+
+      socket.emit('infos', { user, users });
+      socket.broadcast.emit('newPlayer', data.username);      
     }
   });
 
@@ -91,7 +90,7 @@ io.on('connection', (socket) => {
    */
   socket.on('messageSent', (payload) => {
     const { name, message } = payload;
-    io.sockets.emit('message', {
+    io.emit('message', {
       from: name,
       message,
       at: new Date()
@@ -104,15 +103,15 @@ io.on('connection', (socket) => {
   let turnTime = 3;
   let countdown = turnTime * 60;
   socket.on('startGame', (payload) => {
-    const AVAILABLE_WOLVES_OR_VILLAGER = users.length - offset;
-    const MAX_WOLVES = (AVAILABLE_WOLVES_OR_VILLAGER % 2 === 0) ? AVAILABLE_WOLVES_OR_VILLAGER / 2 : (AVAILABLE_WOLVES_OR_VILLAGER / 2) + .5;
-    const MAX_VILLAGERS = (AVAILABLE_WOLVES_OR_VILLAGER % 2 === 0) ? AVAILABLE_WOLVES_OR_VILLAGER / 2 : (AVAILABLE_WOLVES_OR_VILLAGER / 2) - .5;
+    const availableWolvesOrVillagers = users.length - offset;
+    const maxWolves = (availableWolvesOrVillagers % 2 === 0) ? availableWolvesOrVillagers / 2 : (availableWolvesOrVillagers / 2) + .5;
+    const maxVillagers = (availableWolvesOrVillagers % 2 === 0) ? availableWolvesOrVillagers / 2 : (availableWolvesOrVillagers / 2) - .5;
 
-    for (let i = 0; i < MAX_WOLVES; i++) {
-      roles.push('Loup');
+    for (let i = 0; i < maxWolves; i++) {
+      roles.push(wolve);
     }
-    for (let j = 0; j < MAX_VILLAGERS; j++) {
-      roles.push('Villageois');
+    for (let j = 0; j < maxVillagers; j++) {
+      roles.push(villager);
     }
 
     users.forEach(user => {  
@@ -121,12 +120,13 @@ io.on('connection', (socket) => {
       roles.splice(index, 1);
     });    
 
+    io.to(socket.id).emit('role', 'cc twa');    
     socket.broadcast.emit('role', users);
 
     if(!GAME_HAS_STARTED) {
       setInterval(() => {
         countdown--;
-        io.sockets.emit('timer', { countdown });
+        socket.broadcast.emit('timer', { countdown });
       }, 1000)
 
       GAME_HAS_STARTED = true;

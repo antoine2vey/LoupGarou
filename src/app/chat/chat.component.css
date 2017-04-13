@@ -9,14 +9,12 @@
 .chat-message-container {
   display: flex;
   justify-content: flex-start;
-  margin-bottom: 10px;
   padding: 3px 10px;
 }
 
 .chat-message {
   max-width: 50%;
   position: relative;
-  margin-bottom: 10px;
   padding: 3px 10px;
   color: #212121;
   background: #eee;
@@ -55,7 +53,6 @@
 .own-message {
   max-width: 50%;
   position: relative;
-  margin-bottom: 10px;
   padding: 3px 10px;
   color: #FFFFFF;
   background: #3498db;

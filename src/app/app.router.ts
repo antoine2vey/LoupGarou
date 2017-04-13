@@ -9,7 +9,7 @@ import {ChatComponent} from "./chat/chat.component";
 
 export const router: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'UsersLogged', component: GameComponent }
+  { path: 'game', component: GameComponent }
 ];
 
 export const routes: ModuleWithProviders = RouterModule.forRoot(router);
