@@ -17,7 +17,6 @@ export class TimerComponent implements OnInit {
   constructor(private timerService: TimerService, private usersService: UsersService) {
     this.subscription = usersService.newAnimate$.subscribe(
       animate => {
-        console.log(animate);
         this.animate = animate;
       }
     );

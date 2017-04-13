@@ -13,7 +13,6 @@ export class UsersService {
   newAnimate$ = this.animate.asObservable();
 
   startGame(animate: boolean) {
-    console.log(animate);
     this.animate.next(animate);
     this.socket.emit('startGame');
   }

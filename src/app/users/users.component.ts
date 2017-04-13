@@ -16,7 +16,6 @@ export class UsersComponent implements OnInit {
     private usersService: UsersService) { }
 
   startGame() {
-    console.log('start')
     this.usersService.startGame(true);
   }
 
