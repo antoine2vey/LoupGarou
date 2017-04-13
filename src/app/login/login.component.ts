@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'login',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
   private username: string = '';
 
 
-  constructor(private loginService: LoginService) { }
+  constructor(private router: Router, private loginService: LoginService) { }
 
   login(username) {
     this.loginService.login(username);
@@ -21,7 +22,10 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loginService.getError().subscribe(error => this.error = error);
-    this.loginService.getUser().subscribe(user => localStorage.setItem("user", JSON.stringify(user)));
+    this.loginService.getError().subscribe(error => this.error = error);    
+    this.loginService.getUser().subscribe(user => {
+      localStorage.setItem("user", JSON.stringify(user));
+      this.router.navigate(['game']);
+    });
   }
 }

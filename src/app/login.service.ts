@@ -11,7 +11,7 @@ export class LoginService {
   private socket:any = io(this.proxyService.socketUrl());
 
   login(username) {
-    this.socket.emit('login', { username })
+    this.socket.emit('login', { username });
   }
 
   getError() {
