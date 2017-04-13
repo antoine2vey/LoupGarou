@@ -63,7 +63,7 @@ const getIdOnRole = (role) => users.filter(u => u.role === role).map(x => x.id);
 io.on('connection', (socket) => {
   /**
    * LOGIN
-   */  
+   */
 
   socket.on('login', (data) => {
     // If user is already connected
@@ -81,7 +81,6 @@ io.on('connection', (socket) => {
         user,
         usersConnected: users
       });
-
       socket.broadcast.emit('newPlayer', data.username);
     }
   });
@@ -115,11 +114,11 @@ io.on('connection', (socket) => {
       roles.push('Villageois');
     }
 
-    users.forEach(user => {  
+    users.forEach(user => {
       const index = Math.floor(Math.random() * roles.length);
       user.role = roles[index];
       roles.splice(index, 1);
-    });    
+    });
 
     socket.broadcast.emit('role', users);
 

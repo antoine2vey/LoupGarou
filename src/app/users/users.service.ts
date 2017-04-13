@@ -23,4 +23,8 @@ export class UsersService {
     })
     return observable;
   }
+
+  showRole(){
+    this.socket.emit('role');
+  }
 }

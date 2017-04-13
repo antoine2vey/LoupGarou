@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from './users.service';
 import { LoginService } from '../login.service';
+import { ChatService } from '../chat/chat.service';
 
 @Component({
   selector: 'admin',

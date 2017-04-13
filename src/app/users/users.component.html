@@ -4,7 +4,9 @@
     <li *ngFor="let user of users" class="users-list-item">{{user.username}}</li>
   </ul>
 </div>
-
+<div class="role-bloc">
+<p>{{user.role}}</p>
+</div>
 <div class="button-bloc">
   <button type="button" name="start" *ngIf="isMaster" (click)="startGame()" class="button-go">Lancer la partie !</button>
 </div>
