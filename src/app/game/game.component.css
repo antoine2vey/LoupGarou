@@ -1,29 +1,21 @@
-.game {
-  position: relative;
-  width: 100%;
+.game, .columns {
   height: 100vh;
-  background: url("../../assets/images/game-bg.jpg") no-repeat center;
-  background-size: cover;
-}
-
-.game-title {
   margin: 0;
-  text-align: center;
 }
 
-.game-container {
+.column {
+  border-left: 1px solid #ccc;
+}
+.column:first-of-type {
+  border-left: 0;
   display: flex;
-  display: -webkit-flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+}
+.column:last-of-type > app-chat {  
+  height: 100%;
 }
 
-.game-main {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
+wolve-chat {
   flex: 1;
-  height: 95vh;
-  background: rgba(255, 255, 255, 0.3);
-  overflow: hidden;
+  margin-top: 20px;
 }

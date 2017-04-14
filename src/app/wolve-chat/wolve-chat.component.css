@@ -50,7 +50,7 @@
 }
 
 .tag {
-  border-radius: 0;
+  border-radius: 0;  
 }
 .tag.alone.last {
   border-radius: 200px;

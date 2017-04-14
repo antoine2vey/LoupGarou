@@ -25,8 +25,8 @@ export class LoginService {
 
   getUser() {
     let observable = new Observable(observer => {
-      this.socket.on('infos', (data) => {        
-        observer.next(data.user);
+      this.socket.on('user', (data) => {        
+        observer.next(data);
       });
     })
     return observable;
@@ -34,8 +34,15 @@ export class LoginService {
 
   getUsers() {
     let observable = new Observable(observer => {
-      this.socket.on('infos', (data) => {                
-        observer.next(data.users);
+      this.socket.on('users', (data) => {            
+        if (data.updateLocalStorage) {
+          const name = JSON.parse(localStorage.getItem('user')).username;
+          const user = data.users.filter(user => user.username == name);          
+          localStorage.setItem('user', JSON.stringify(user[0]));
+          observer.next(data.users); 
+        } else {
+          observer.next(data);
+        }
       });
     })
     return observable;

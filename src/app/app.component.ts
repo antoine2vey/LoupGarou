@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from './login.service';
-import { ProxyService } from './proxy.service';
+import { UsersService } from './users/users.service';
 import * as io from 'socket.io-client';
 
 @Component({
@@ -10,15 +9,11 @@ import * as io from 'socket.io-client';
 })
 
 export class AppComponent implements OnInit {
-  constructor(private loginService: LoginService,
-              private proxyService: ProxyService) {}
-
-  private users: any = [];
-  private socket:any = io(this.proxyService.socketUrl());
+  constructor(private usersService: UsersService) {}
   
+  private isNight: boolean = false;
+
   ngOnInit() {             
-    this.loginService.getUsers().subscribe(users => {
-      this.users = users;
-    })
+    this.usersService.getWeather().subscribe(weather => this.isNight = (weather === 'night'))
   }
 }

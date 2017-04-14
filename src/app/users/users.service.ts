@@ -15,4 +15,13 @@ export class UsersService {
     this.animate = true;
     this.socket.emit('startGame');
   }
+
+  getWeather() {
+    let observable = new Observable(observer => {
+      this.socket.on('weather', (data) => {
+        observer.next(data);
+      });
+    })
+    return observable;
+  }
 }
