@@ -1,14 +1,13 @@
 <div class="game">
-  <h1 class="game-title">{{title}}</h1>
-  <div class="game-container">
-    <div class="game-sidebar-left">
+  <div class="columns">
+    <div class="column">
       <app-timer></app-timer>
-    </div>
-    <div class="game-main">
-      <app-chat></app-chat>
-    </div>
-    <div class="game-sidebar-right">
       <admin></admin>
+      <vote></vote>
+      <wolve-chat></wolve-chat>
+    </div>
+    <div class="column">
+      <app-chat></app-chat>
     </div>
   </div>
 </div>

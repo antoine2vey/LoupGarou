@@ -1,18 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { ProxyService } from '../proxy.service';
 import { Observable } from 'rxjs/Observable';
-import { ProxyService } from '../proxy.service';
 import * as io from 'socket.io-client';
 
 @Injectable()
-export class ChatService {
-  constructor(private proxyService: ProxyService) {}
-
-  private socket:any = io(this.proxyService.socketUrl());
+export class WolveChatService {
+  constructor(private proxyService: ProxyService) { }
+  private socket: any = io(this.proxyService.socketUrl());  
 
   sendMessage(message) {    
     if (message !== '') {
-      this.socket.emit('messageSent', {
+      this.socket.emit('messageSentToWolves', {
         name: JSON.parse(localStorage.getItem("user")).username,
         message
       })
@@ -33,7 +31,7 @@ export class ChatService {
 
   getMessages() {
     let observable = new Observable(observer => {
-      this.socket.on('message', (data) => {        
+      this.socket.on('messageToWolves', (data) => {        
         const name = JSON.parse(localStorage.getItem("user")).username;
         if (data.from === name) {
           data.own = true

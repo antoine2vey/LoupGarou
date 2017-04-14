@@ -1,0 +1,20 @@
+<div class="vote">
+  <div *ngIf="!userIsDead; else deadUser">
+    <label for="vote" class="label">Vote contre :</label>
+    <select (change)="setVote(selectedUser)" 
+            [(ngModel)]="selectedUser" 
+            class="input" 
+            id="vote"
+            [disabled]="isNight && !isWolf">    
+      <option value="" disabled selected></option>
+      <option *ngFor="let user of users" [ngValue]="user.username">{{user.username}}</option>    
+    </select>
+  </div>
+  <ng-template #deadUser>
+    <span class="tag is-danger">Tu est mort, mais tu peut toujours regarder les autres jouer!</span>
+  </ng-template>
+
+  <ul *ngIf="deadUsers.length">
+    <li *ngFor="let user of deadUsers">{{user.count}} {{user.count === 1 ? 'vote' : 'votes' }} - {{user.toKill}}</li>
+  </ul>
+</div>

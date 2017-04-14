@@ -1,19 +1,16 @@
 <div class="loginPage">
   <div class="loginMain">
     <div class="loginModal">
-      <h1>Joue Au Loup Garou</h1>
-      <p>
-        <input [(ngModel)]="username" type="text" name="username" placeholder="Entre Ton Pseudo" />
-        <button type="button" class="btn btn-default" (click)="login(username)">Login</button>
-      </p>
+      <h1>LOUP GAROU</h1>
+      <h2>Salut {{username ? username : 'toi'}}!</h2>
+      <div class="input-container">
+        <input [(ngModel)]="username" type="text" name="username" placeholder="Pseudo.." class="input" (keyup.enter)="login(username)" />
+        <button type="button" class="button is-primary" [class.is-disabled]="!username" (click)="login(username)">Login</button>
+      </div>
     </div>
-  </div>
-
-  <div [hidden]="!error" class="errorMessage">
-    <code>{{error}}</code>
-  </div>
-
-  <div class="ruleGame">
-    <h3>Jeu du Loup Garou - <a href="http://lesloupsgarous.free.fr/htm/regles.html"> Régles du jeu </a></h3>
-  </div>
+    <div [hidden]="!error" class="notification is-danger" (click)="error = false">
+      <button class="delete"></button>
+      <span>Erreur : {{error}}</span>
+    </div>
+  </div>  
 </div>

@@ -1,21 +1,14 @@
-  .users {
-    width: 250px;
-    color: #FFFFFF;
-  }
+.button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
 
-  .users-title {
-    text-align: center;
-  }
+.users {
+  align-self: flex-end;
+}
 
-  .users-list {
-    padding: 0;
-    margin: 0;
-  }
-
-  .button-bloc {
-    text-align: center;
-  }
-
-  .button-go {
-    background-image: linear-gradient(to right, #e4afcb 0%, #b8cbb8 0%, #b8cbb8 0%, #e2c58b 30%, #c2ce9c 64%, #7edbdc 100%);
-  }
+.users-list {
+  padding-left: 15px;
+  font-weight: 600;
+}

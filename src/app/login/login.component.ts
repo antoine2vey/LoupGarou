@@ -13,17 +13,17 @@ export class LoginComponent implements OnInit {
   private error: any = '';
   private username: string = '';
 
-
   constructor(private router: Router, private loginService: LoginService) { }
 
-  login(username) {
+  login(username) {    
     this.loginService.login(username);
     this.username = '';
   }
 
   ngOnInit() {
     this.loginService.getError().subscribe(error => this.error = error);    
-    this.loginService.getUser().subscribe(user => {
+    this.loginService.getUser().subscribe(user => {         
+      console.log(user);   
       localStorage.setItem("user", JSON.stringify(user));
       this.router.navigate(['game']);
     });
