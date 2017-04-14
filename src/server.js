@@ -11,54 +11,11 @@ http.listen(PORT, () => console.log('listening on PORT ' + PORT));
 let GAME_HAS_STARTED = false;
 let cycle = 0;
 let users = [];
-<<<<<<< HEAD
-// const users = [
-//   {
-//     id: 0,
-//     name: 'Antoine',
-//   },
-//   {
-//     id: 1,
-//     name: 'Pierre',
-//   },
-//   {
-//     id: 2,
-//     name: 'Clément',
-//   },
-//   {
-//     id: 3,
-//     name: 'Thibault',
-//   },
-//   {
-//     id: 4,
-//     name: 'Maxime',
-//   },
-//   {
-//     id: 5,
-//     name: 'Edwin',
-//   },
-//   {
-//     id: 6,
-//     name: 'Margaux',
-//   },
-//   {
-//     id: 7,
-//     name: 'Eva',
-//   },
-//   {
-//     id: 8,
-//     name: 'Kouek',
-//   },
-// ]
-
 //All roles are defined here
 let roles = ['Chasseur', 'Petite fille', 'Cupidon', 'Voyante', 'Sorcière'];
-=======
 let votes = [];
 let shouldKill = [];
-let roles = ['Petite fille', 'Chasseur', 'Cupidon'];
 
->>>>>>> new
 const offset = roles.filter(role => role !== 'Loup' && role !== 'Villageois').length;
 const wolf = 'Loup';
 const villager = 'Villageois';
@@ -198,7 +155,7 @@ io.on('connection', (socket) => {
           io.emit('users', {
             users,
             updateLocalStorage: true
-          });
+          });        
         }
       }, 1000)
 
