@@ -18,7 +18,9 @@ import { UsersComponent } from './users/users.component';
 import { UsersService } from './users/users.service';
 
 import { ProxyService } from './proxy.service';
+
 import { GameComponent } from './game/game.component';
+import { GameService } from './game/game.service';
 
 import { VoteComponent } from './vote/vote.component';
 import { VoteService } from './vote/vote.service';
@@ -52,7 +54,8 @@ import { routes } from './app.router';
     UsersService,
     ProxyService,
     VoteService,
-    WolveChatService
+    WolveChatService,
+    GameService
   ],
   bootstrap: [AppComponent]
 })

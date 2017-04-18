@@ -22,8 +22,7 @@ export class VoteComponent implements OnInit {
   private isWolf: any;
   private isNight: any = true;
 
-  setVote(user) {     
-    console.log('changed');
+  setVote(user) {         
     this.voteService.sendVote(user);
   }
 
@@ -37,15 +36,16 @@ export class VoteComponent implements OnInit {
     }); 
 
     this.connection = this.voteService.displayVotes().subscribe(votes => {
+      console.log('LISTENER: votes', votes);
       this.deadUsers = votes;
     });
 
     this.usersService.getWeather().subscribe(weather => {
-      this.isNight = weather === 'night';
+      this.isNight = weather === 'night';      
       this.isWolf = JSON.parse(localStorage.getItem('role')).role === 'Loup';
 
-      console.log(this.isNight)
-      console.log(this.isWolf)
+      // Votes are resetted in front on a new day
+      this.deadUsers = [];
     });
   }
 }

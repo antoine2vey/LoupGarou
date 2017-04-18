@@ -12,7 +12,7 @@ let GAME_HAS_STARTED = false;
 let cycle = 0;
 let users = [];
 //All roles are defined here
-let roles = ['Chasseur', 'Petite fille', 'Cupidon', 'Voyante', 'Sorcière'];
+let roles = ['Petite fille'];
 let votes = [];
 let shouldKill = [];
 
@@ -47,7 +47,16 @@ const setVote = (from, against, callback) => {
   callback();
 }
 const setWeather = (cycle) => (cycle % 2 === 0) ? 'night' : 'day';
-
+let won = true;
+const didWolvesWon = (arr) => {  
+  for(let i = 0; i < arr.length; i++) {
+    if(arr[i] !== 'Loup') {
+      won = false;
+      break;
+    }
+  }
+  return won;
+}
 
 io.on('connection', (socket) => {
   socket.on('disconnect', () => {    
@@ -102,7 +111,7 @@ io.on('connection', (socket) => {
   /**
    * GAME STARTED
    */
-  let turnTime = 1;
+  let turnTime = .2;
   let countdown = turnTime * 60;
   socket.on('startGame', (payload) => {     
     const availableWolvesOrVillagers = users.length - offset;
@@ -135,12 +144,7 @@ io.on('connection', (socket) => {
         socket.broadcast.emit('timer', { countdown });
 
         //Turn has ended, we kill the guy !
-        if (countdown === 0) {
-          //New cycle
-          cycle += 1;
-          io.emit('weather', setWeather(cycle));
-          //Reset countdown;
-          countdown = turnTime * 60;
+        if (countdown === 0) {          
           shouldKill.sort((a, b) => a.count < b.count);
           const killedPlayer = shouldKill[0].toKill;
           users.map( user => {
@@ -149,13 +153,40 @@ io.on('connection', (socket) => {
             }
           });
 
+          //Set the winner if there is :
+          // Filter on not dead ppl
+          //  - Array of ysers NOT dead full of wolves
+          //  - OR no more wolves
+          //Check if no wolves, so villagers won
+          let villagersStep = users.filter(user => user.role !== 'Loup').map(user => user.role);                    
+          console.log('Did villagers won?', villagersStep.indexOf('Loup') !== -1)
+          io.emit('villagersWon', (villagersStep.indexOf('Loup') === -1));
+          //Sort all roles in array
+          let rolesLeft = users.filter(user => !user.isDead).map(user => user.role);        
+          console.log('Did wolves won?', didWolvesWon(rolesLeft))
+          io.emit('wolvesWon', didWolvesWon(rolesLeft));          
+
           //Dispatch updated user
           //Still need socket.to() method
           //So we notify that localStorage needs to be update
           io.emit('users', {
             users,
             updateLocalStorage: true
-          });        
+          });
+
+          
+
+          //We reset votes and send empty array
+          shouldKill = [];
+          votes = [];          
+          io.emit('votes', shouldKill);     
+          
+          //New cycle
+          console.log('RESET THE TIMER PLEASE!');
+          cycle += 1;
+          io.emit('weather', setWeather(cycle));
+          //Reset countdown;
+          countdown += 1 * 60;           
         }
       }, 1000)
 

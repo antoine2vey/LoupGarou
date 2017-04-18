@@ -12,7 +12,11 @@
                         'is-danger': !message.from }">
             <span class="chat-message-date" *ngIf="message.at; else noDate">[{{message.at | date :'H:mm:ss'}}]</span>        
             <span *ngIf="message.from; else serverMessage">
-              <span class="author">{{message.from}} :</span> {{message.message}}</span>
+              <span class="author" *ngIf="message.from">
+                <span *ngIf="!isLittleGirl; else isGirl">{{message.from}}</span>
+                <ng-template #isGirl>******</ng-template>
+              :</span> {{message.message}}
+            </span>            
             <ng-template #serverMessage>
               {{message.message}}
             </ng-template>

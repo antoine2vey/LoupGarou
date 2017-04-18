@@ -23,12 +23,12 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit() {
-    // try {
-    //   this.isMaster = JSON.parse(localStorage.getItem("user")).isMaster;
-    // } catch (e) { }
-    // this.loginService.getUsers().subscribe(users => {      
-    //   this.users = users;
-    // });
+    try {
+      this.isMaster = JSON.parse(localStorage.getItem("user")).isMaster;
+    } catch (e) { }
+    this.loginService.getUsers().subscribe(users => {      
+      this.users = users;
+    });
     this.loginService.newUser().subscribe(user => this.users.push({ username: user }));
   }
 }

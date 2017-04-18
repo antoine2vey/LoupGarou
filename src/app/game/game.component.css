@@ -19,3 +19,12 @@ wolve-chat {
   flex: 1;
   margin-top: 20px;
 }
+
+.notification {
+  width: 200px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+

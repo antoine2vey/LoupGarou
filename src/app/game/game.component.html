@@ -11,3 +11,14 @@
     </div>
   </div>
 </div>
+
+
+<div class="notification is-danger" *ngIf="wolvesWon">
+  <button class="delete" (click)="!wolvesWon"></button>
+  Les loups ont gagnés :(
+</div>
+
+<div class="notification is-success" *ngIf="villagersWon">
+  <button class="delete" (click)="!villagersWon"></button>
+  Les villageois ont gagnés ! Yoohoo!
+</div>

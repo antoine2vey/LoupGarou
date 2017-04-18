@@ -39,7 +39,8 @@ export class LoginService {
           const name = JSON.parse(localStorage.getItem('user')).username;
           const user = data.users.filter(user => user.username == name);          
           localStorage.setItem('user', JSON.stringify(user[0]));
-          observer.next(data.users); 
+          const users = data.users.filter(user => user.isDead !== true);          
+          observer.next({users, ok:'ok'}); 
         } else {
           observer.next(data);
         }
